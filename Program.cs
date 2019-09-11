@@ -1,59 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Habanero.Faces.Base;
-using Microsoft.Win32;
- 
+using BaseDados.Objetos;
 
-namespace TATIC
+namespace BaseDados
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            menu();
-        }
+            bool ArmazenadorIsSet = false;
 
-        public static void menu()
-        {
-            Console.WriteLine("Digite a opção desejada");
-            Console.WriteLine("1 - Armazenador");
-            Console.WriteLine("2- Buscador");
-            Console.WriteLine("0- Para Sair");
-            int op = int.Parse(Console.ReadLine());
-            switch (op)
+            Armazenador armazenador = null;
+            Buscador buscador = null;
+            while(true)
             {
-                case 1:
-                    Console.WriteLine("Digite o caminho que o arquivo para ser lido se encontra");
-                    string caminho = Console.ReadLine();
-                    lerArquivo(caminho);
-                    Console.ReadKey();
-                    break;
-                case 2:
-                    
-                    break;
-                case 3:
-                    
-                    Console.ReadKey();
-                    break;
+                var teclado = Console.ReadLine();
+
+                var funcao = teclado.Split(" ");
+                switch(funcao[0])
+                {
+                    case "armazenador":
+                        if(funcao.Length == 2 && funcao[1].EndsWith(".txt"))
+                        {
+                            armazenador = new Armazenador(funcao[1]);
+                            await armazenador.LerArquivoAsync();    
+                            ArmazenadorIsSet = true;
+                            buscador = new Buscador(armazenador);
+                            Console.WriteLine("\n");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Comando Inválido");
+                        }
+                        break;
+                    case "buscador":
+                        if(funcao.Length >= 3 && ArmazenadorIsSet)
+                        {
+                            string []eventos = funcao.Skip(3).ToArray();
+                            Console.WriteLine(buscador.ProcurarPor(funcao[1], funcao[2], eventos));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Comando Invalido");
+                        }
+                        break;
+                }
+
             }
 
-        }
-
-        public static void lerArquivo(string caminho)
-        {           
-            string text = System.IO.File.ReadAllText(caminho);
-            string linha;
-            while ((linha = text.ReadLine()) != null)
-            {
-                string[] dados = linha.Split(';');
-                int codigo = int.Parse(dados[0]);
-                string nome = dados[1];
-                string endereco = dados[2];
-
-            }
         }
     }
 }
