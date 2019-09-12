@@ -47,13 +47,13 @@ namespace BaseDados.Objetos
                                     if(!BuscarPorEvento(Eventos, Evento))
                                         break; // Caso não seja o loop vai para o próximo
                                     NumeroResultados++;
-                                    resultado.Append(registro.GetDateTimeStringFormat()).Append(";").Append(Evento.ToString("X"))
+                                    resultado.Append(registro.GetDateTimeStringFormat()).Append(";").Append(Evento.ToString("X8"))
                                                 .Append(";").Append(registro.RUsuario.ToString()).Append("\n");
                                 }
                                 else // Caso a busca não esteja filtrando por linha apenas adiciona ao resultado
                                 {
                                     NumeroResultados++;
-                                    resultado.Append(registro.GetDateTimeStringFormat()).Append(";").Append(Evento.ToString("X"))
+                                    resultado.Append(registro.GetDateTimeStringFormat()).Append(";").Append(Evento.ToString("X8"))
                                                 .Append(";").Append(registro.RUsuario.ToString()).Append("\n");
                                 }
                             }
