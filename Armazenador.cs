@@ -23,10 +23,10 @@ namespace BaseDados.Objetos
             try
             {
                 /* Verifica se a propriedade contém apenas espaços ou está vazia */
-                if (string.IsNullOrEmpty(nomeArquivo) || string.IsNullOrWhiteSpace(nomeArquivo))
+                if(string.IsNullOrEmpty(nomeArquivo) || string.IsNullOrWhiteSpace(nomeArquivo))
                     throw new NullReferenceException(nomeArquivo.GetType().FullName + " Não pode ser NULL ou Vazio");
                 /* Verifica se o arquivo existe */
-                if (!System.IO.File.Exists(nomeArquivo))
+                if(!System.IO.File.Exists(nomeArquivo))
                     throw new Exception(nomeArquivo + " Não Encontrado");
             }
             catch (NullReferenceException)
@@ -41,21 +41,21 @@ namespace BaseDados.Objetos
             this.nomeArquivo = nomeArquivo;
         }
 
-        public async Task LerArquivoAsync()
+        public void LerArquivo()
         {
             /* Carrega o Arquivo */
-            using (var reader = new StreamReader(nomeArquivo))
+            using(var reader = new StreamReader(nomeArquivo))
             {
                 registros = new Registros();
                 /* While que verificar se está no afim do arquivo*/
-                while (!reader.EndOfStream)
+                while(!reader.EndOfStream)
                 {
                     /* Ler do arquivo a cada quebra de linha */
-                    var line = await reader.ReadLineAsync();
+                    var line = reader.ReadLine();
 
                     /* Separa cada conteudo da string a cada ; retornada */
                     var data = line.Split(";");
-
+                    
                     /* Funcao responsável por adicionar o registro na memoria */
                     registros.AdicionarRegistro(data[0], data[1], data[2]);
                 }
