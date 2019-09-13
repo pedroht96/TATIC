@@ -7,8 +7,8 @@ namespace BaseDados
 {
     class Program
     {
-        static async Task Main(string[] args)
-        {
+        static int Main(string[] args)
+        {   
             bool ArmazenadorIsSet = false;
 
             Armazenador armazenador = null;
@@ -24,7 +24,7 @@ namespace BaseDados
                         if(funcao.Length == 2 && funcao[1].EndsWith(".txt"))
                         {
                             armazenador = new Armazenador(funcao[1]);
-                            await armazenador.LerArquivoAsync();    
+                            armazenador.LerArquivo();    
                             ArmazenadorIsSet = true;
                             buscador = new Buscador(armazenador);
                             Console.WriteLine("\n");
