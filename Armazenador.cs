@@ -20,23 +20,12 @@ namespace BaseDados.Objetos
 
         public Armazenador(string nomeArquivo)
         {
-            try
-            {
                 /* Verifica se a propriedade contém apenas espaços ou está vazia */
-                if(string.IsNullOrEmpty(nomeArquivo) || string.IsNullOrWhiteSpace(nomeArquivo))
-                    throw new NullReferenceException(nomeArquivo.GetType().FullName + " Não pode ser NULL ou Vazio");
+            if(string.IsNullOrEmpty(nomeArquivo) || string.IsNullOrWhiteSpace(nomeArquivo))
+                throw new NullReferenceException(nomeArquivo.GetType().FullName + " Não pode ser NULL ou Vazio");
                 /* Verifica se o arquivo existe */
-                if(!System.IO.File.Exists(nomeArquivo))
-                    throw new Exception(nomeArquivo + " Não Encontrado");
-            }
-            catch (NullReferenceException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            if(!System.IO.File.Exists(nomeArquivo))
+                throw new Exception(nomeArquivo + " Não Encontrado");
 
             this.nomeArquivo = nomeArquivo;
         }
